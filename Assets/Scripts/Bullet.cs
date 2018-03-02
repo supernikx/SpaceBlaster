@@ -43,12 +43,19 @@ public class Bullet : MonoBehaviour
 
     #endregion
 
+    private void Start()
+    {
+        mainCamera = FindObjectOfType<Camera>();
+        screenWorldunitDimension = mainCamera.ScreenToWorldPoint(new Vector2(Screen.height, Screen.width));
+    }
 
     private void Update()
     {
         if (currentState == State.InUse)
         {
             transform.position += direction * force;
+            if (CheckScreenPosition())
+                DestroyMe();
         }
     }
 
@@ -59,4 +66,15 @@ public class Bullet : MonoBehaviour
             DestroyMe();
         }
     }
+
+    #region ScreenCheck
+    Camera mainCamera;
+    Vector2 screenWorldunitDimension;
+    private bool CheckScreenPosition()
+    {
+        if (transform.position.z > screenWorldunitDimension.y)
+            return true;
+        return false;
+    }
+    #endregion
 }
