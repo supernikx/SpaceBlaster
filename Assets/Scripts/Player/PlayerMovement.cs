@@ -10,11 +10,13 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode backwardInput = KeyCode.S;
     public KeyCode rightInput = KeyCode.D;
     public KeyCode leftInput = KeyCode.A;
-    public float movementSpeed=0.2f;
+    public float movementSpeed = 0.2f;
+
+    float screenWidth;
 
     void Start()
     {
-
+        screenWidth = Camera.main.orthographicSize * Camera.main.aspect - transform.localScale.magnitude;
     }
 
     void FixedUpdate()
@@ -40,5 +42,19 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.position += Vector3.left * movementSpeed;
         }
+        CheckCameraBounds();
     }
+
+    private void CheckCameraBounds()
+    {
+        if (transform.position.x > screenWidth)
+        {
+            transform.position = new Vector3(screenWidth, transform.position.y, transform.position.z);
+        }
+        else if (transform.position.x < -screenWidth)
+        {
+            transform.position = new Vector3(-screenWidth, transform.position.y, transform.position.z);
+        }
+    }
+
 }

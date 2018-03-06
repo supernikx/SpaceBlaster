@@ -45,8 +45,7 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-        mainCamera = FindObjectOfType<Camera>();
-        screenWorldunitDimension = mainCamera.ScreenToWorldPoint(new Vector2(Screen.height, Screen.width));
+        screenHeight = Camera.main.orthographicSize;
     }
 
     private void Update()
@@ -59,20 +58,20 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         if (currentState == State.InPool)
         {
             DestroyMe();
         }
+        Debug.Log("sos");
     }
 
     #region ScreenCheck
-    Camera mainCamera;
-    Vector2 screenWorldunitDimension;
+    float screenHeight;
     private bool CheckScreenPosition()
     {
-        if (transform.position.z > screenWorldunitDimension.y)
+        if (transform.position.z > screenHeight*2 || transform.position.z < -screenHeight)
             return true;
         return false;
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShootInput : MonoBehaviour {
     [Header("Shoot Settings")]
     public KeyCode shootInput = KeyCode.Space;
-    public float shootForce = 0.3f;
+    public ShootTypes shoottype;
     public Transform shootPosition;
 
     BulletPoolManager bulletManager;
@@ -27,6 +27,6 @@ public class ShootInput : MonoBehaviour {
     {
         Bullet bulletToShoot = bulletManager.GetBullet();
         bulletToShoot.transform.position = shootPosition.position;
-        bulletToShoot.Shoot(transform.forward,shootForce);
+        bulletToShoot.Shoot(transform.forward,shoottype.bulletForce);
     }
 }
