@@ -11,10 +11,12 @@ public class Bullet : MonoBehaviour
         InUse,
     }
     public delegate void BulletEvent(Bullet bullet);
+    public delegate void BulletCollisionEvent(Bullet bullet, Collider collider);
     #endregion
     #region VariablesDeclarations
     public State currentState = State.InPool;
     public BulletEvent OnShoot;
+    public BulletCollisionEvent OnBulletCollision;
     public BulletEvent OnDestroy;
     #endregion
 
@@ -60,11 +62,14 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (currentState == State.InPool)
+        if (currentState == State.InUse)
         {
+            if (OnBulletCollision != null)
+            {
+                OnBulletCollision(this,other);
+            }
             DestroyMe();
         }
-        Debug.Log("sos");
     }
 
     #region ScreenCheck

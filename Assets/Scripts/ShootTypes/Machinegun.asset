@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: Machinegun
   m_EditorClassIdentifier: 
   fireRateo: 0.2
-  bulletForce: 0.1
+  bulletForce: 0.2
   damage: 0

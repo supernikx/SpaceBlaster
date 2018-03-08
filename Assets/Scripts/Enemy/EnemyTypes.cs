@@ -7,5 +7,6 @@ public class EnemyTypes : ScriptableObject {
 
     public float movementSpeed;
     public int life;
+    public int score;
     public ShootTypes bulletType;
 }
