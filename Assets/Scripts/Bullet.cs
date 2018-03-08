@@ -29,6 +29,7 @@ public class Bullet : MonoBehaviour, IPoolManager
     #region API
     public void DestroyMe()
     {
+        OnBulletCollision = null;
         if (OnObjectDestroy != null)
             OnObjectDestroy(this);
     }

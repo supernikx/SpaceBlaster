@@ -19,9 +19,9 @@ public class PlayerScore : MonoBehaviour {
         {
             EnemyController enemyToKill = other.GetComponent<EnemyController>();
             score += enemyToKill.enemyType.score;
-            scoreText.text = "SCORE = " + score;
             enemyToKill.KillMe();
             bullet.OnBulletCollision -= OnBulletCollision;
+            scoreText.text = "SCORE = " + score;
         }
     }
 }

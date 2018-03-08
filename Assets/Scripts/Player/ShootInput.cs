@@ -12,8 +12,12 @@ public class ShootInput : MonoBehaviour {
 
     private void Awake()
     {
-        pool = PoolManager.instance;
         playerScore = GetComponent<PlayerScore>();
+    }
+
+    private void Start()
+    {
+        pool = PoolManager.instance;   
     }
 
     // Update is called once per frame
@@ -29,6 +33,6 @@ public class ShootInput : MonoBehaviour {
         Bullet bulletToShoot = pool.GetPooledObject(ObjectTypes.bullet).GetComponent<Bullet>();
         bulletToShoot.OnBulletCollision += playerScore.OnBulletCollision;
         bulletToShoot.transform.position = shootPosition.position;
-        bulletToShoot.Shoot(transform.forward,shoottype.bulletForce);
+        bulletToShoot.Shoot(transform.forward, shoottype.bulletForce);
     }
 }
