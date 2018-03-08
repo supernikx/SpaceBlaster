@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour {
 
-    EnemyPoolManager poolManager;
+    PoolManager pool;
     public float spawnTime;
     float spawnTimer, screenHeight, screenWidth;
     public List<EnemyTypes> enemyTypes = new List<EnemyTypes>();
 
 	void Start () {
-        poolManager = FindObjectOfType<EnemyPoolManager>();
+        pool = PoolManager.instance;
         screenHeight = Camera.main.orthographicSize*2;
     }
 	
@@ -20,7 +20,7 @@ public class SpawnManager : MonoBehaviour {
         if (spawnTimer > spawnTime)
         {
             EnemyController enemyToSpawn;
-            enemyToSpawn = poolManager.GetEnemy();
+            enemyToSpawn = pool.GetPooledObject(ObjectTypes.enemy).GetComponent<EnemyController>();
             screenWidth = Camera.main.orthographicSize * Camera.main.aspect - enemyToSpawn.transform.localScale.magnitude;
             Random.Range(screenWidth,-screenWidth);
             enemyToSpawn.Spawn(new Vector3(Random.Range(screenWidth, -screenWidth), transform.position.y, screenHeight), enemyTypes[Random.Range(0, enemyTypes.Count)]);

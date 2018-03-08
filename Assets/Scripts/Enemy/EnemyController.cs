@@ -2,39 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour,IPoolManager
 {
 
     #region TypesDeclarations
-    public enum State
-    {
-        InPool,
-        InUse,
-    }
     public delegate void EnemyEvent(EnemyController enemy);
+    public State Currentstate
+    {
+        get
+        {
+            return currentState;
+        }
+
+        set
+        {
+            currentState = value;
+        }
+    }
     #endregion
     #region VariablesDeclarations
-    public State currentState = State.InPool;
-    public EnemyEvent OnSpawn;
-    public EnemyEvent OnDestroy;
     public EnemyTypes enemyType;
     EnemyTypes instanceEnemy;
-    BulletPoolManager bulletManager;
+    PoolManager pool;
+    private State currentState;
     public Transform shootPoint;
-    float rateoTimer;
+    private float rateoTimer;
+    public event PoolManagerEvets.Events OnObjectSpawn;
+    public event PoolManagerEvets.Events OnObjectDestroy;
     #endregion
 
     // Use this for initialization
     void Start()
     {
-        bulletManager = FindObjectOfType<BulletPoolManager>();
+        pool = PoolManager.instance;
         screenHeight = Camera.main.orthographicSize;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (currentState == State.InUse)
+        if (Currentstate == State.InUse)
         {
             #region ShootRateo
             rateoTimer += Time.deltaTime;
@@ -64,23 +71,25 @@ public class EnemyController : MonoBehaviour
 
     public void Spawn(Vector3 spawnPosition, EnemyTypes type)
     {
+        if (OnObjectSpawn != null)
+        {
+            OnObjectSpawn(this);
+        }
         rateoTimer = 0;
         enemyType = type;
         Setup();
-        currentState = State.InUse;
         transform.position = spawnPosition;
     }
 
     public void KillMe()
     {
-        currentState = State.InPool;
-        if (OnDestroy != null)
-            OnDestroy(this);
+        if (OnObjectDestroy != null)
+            OnObjectDestroy(this);
     }
 
     private void Shoot()
     {
-        Bullet bulletToShoot = bulletManager.GetBullet();
+        Bullet bulletToShoot = pool.GetPooledObject(ObjectTypes.bullet).GetComponent<Bullet>();
         bulletToShoot.transform.position = shootPoint.position;
         bulletToShoot.Shoot(transform.forward, instanceEnemy.bulletType.bulletForce);
     }

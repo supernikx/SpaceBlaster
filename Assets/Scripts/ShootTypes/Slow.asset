@@ -13,4 +13,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireRateo: 1
   bulletForce: 0.1
-  damage: 0
+  damage: 1

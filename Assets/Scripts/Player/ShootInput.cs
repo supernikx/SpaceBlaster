@@ -8,12 +8,11 @@ public class ShootInput : MonoBehaviour {
     public ShootTypes shoottype;
     public Transform shootPosition;
     PlayerScore playerScore;
-
-    BulletPoolManager bulletManager;
+    PoolManager pool;
 
     private void Awake()
     {
-        bulletManager = FindObjectOfType<BulletPoolManager>();
+        pool = PoolManager.instance;
         playerScore = GetComponent<PlayerScore>();
     }
 
@@ -27,7 +26,7 @@ public class ShootInput : MonoBehaviour {
 
     void Shoot()
     {
-        Bullet bulletToShoot = bulletManager.GetBullet();
+        Bullet bulletToShoot = pool.GetPooledObject(ObjectTypes.bullet).GetComponent<Bullet>();
         bulletToShoot.OnBulletCollision += playerScore.OnBulletCollision;
         bulletToShoot.transform.position = shootPosition.position;
         bulletToShoot.Shoot(transform.forward,shoottype.bulletForce);
