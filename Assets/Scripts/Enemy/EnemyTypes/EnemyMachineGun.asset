@@ -9,9 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d355f22bf50d0f4696903756beb6a90, type: 3}
-  m_Name: Enemy1
+  m_Name: EnemyMachineGun
   m_EditorClassIdentifier: 
-  movementSpeed: 0.015
-  life: 2
-  score: 1
-  bulletType: {fileID: 11400000, guid: 94d99d0be7fbb8f419da50208833ded2, type: 2}
+  movementSpeed: 0.01
+  life: 1
+  score: 2
+  bulletType: {fileID: 11400000, guid: 0cf050562cdb3764ab5831dedd2c5bbd, type: 2}
