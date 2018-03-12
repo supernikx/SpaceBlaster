@@ -51,6 +51,7 @@ public class PoolManager : MonoBehaviour {
     private void OnObjectDestroy(IPoolManager objectToDestroy)
     {
         objectToDestroy.Currentstate = State.InPool;
+        objectToDestroy.ownerObject = null;
         ((MonoBehaviour)objectToDestroy).gameObject.transform.position = poolPosition;
     }
 
@@ -59,12 +60,15 @@ public class PoolManager : MonoBehaviour {
         objectToSpawn.Currentstate = State.InUse;
     }
 
-    public GameObject GetPooledObject(ObjectTypes type)
+    public GameObject GetPooledObject(ObjectTypes type, GameObject callingObject)
     {
         foreach (IPoolManager _object in poolDictionary[type])
         {
             if (_object.Currentstate == State.InPool)
+            {
+                _object.ownerObject = callingObject;
                 return ((MonoBehaviour)_object).gameObject;
+            }
         }
         Debug.Log("Nessun "+type+" disponibile");
         return null;

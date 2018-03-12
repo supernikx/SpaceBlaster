@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour,IPoolManager
+public class EnemyController : MonoBehaviour, IPoolManager, IDamageSystem
 {
-
     #region TypesDeclarations
     public delegate void EnemyEvent(EnemyController enemy);
     public State Currentstate
@@ -19,6 +18,17 @@ public class EnemyController : MonoBehaviour,IPoolManager
             currentState = value;
         }
     }
+    public GameObject ownerObject
+    {
+        get
+        {
+            return ownerobject;
+        }
+        set
+        {
+            ownerobject = value;
+        }
+    }
     #endregion
     #region VariablesDeclarations
     public EnemyTypes enemyType;
@@ -29,6 +39,7 @@ public class EnemyController : MonoBehaviour,IPoolManager
     private float rateoTimer;
     public event PoolManagerEvets.Events OnObjectSpawn;
     public event PoolManagerEvets.Events OnObjectDestroy;
+    private GameObject ownerobject;
     #endregion
 
     // Use this for initialization
@@ -87,11 +98,30 @@ public class EnemyController : MonoBehaviour,IPoolManager
             OnObjectDestroy(this);
     }
 
+    public void Damaged(ShootTypes bulletType, Bullet bulletHitted)
+    {
+        if (bulletHitted.ownerObject.tag == "Player")
+        {
+            instanceEnemy.life -= bulletType.damage;
+            if (instanceEnemy.life <= 0)
+            {
+                bulletHitted.ownerObject.GetComponent<IDamageSystem>().KilledEnemy(gameObject);
+                KillMe();
+            }
+        }
+    }
+
+    public void KilledEnemy(GameObject enemyKilled)
+    {
+        enemyKilled.SetActive(false);
+        Debug.Log("Game Over");
+    }
+
     private void Shoot()
     {
-        Bullet bulletToShoot = pool.GetPooledObject(ObjectTypes.bullet).GetComponent<Bullet>();
+        Bullet bulletToShoot = pool.GetPooledObject(ObjectTypes.bullet,gameObject).GetComponent<Bullet>();
         bulletToShoot.transform.position = shootPoint.position;
-        bulletToShoot.Shoot(transform.forward, instanceEnemy.bulletType.bulletForce);
+        bulletToShoot.Shoot(transform.forward, instanceEnemy.bulletType.bulletForce, instanceEnemy.bulletType);
     }
 
     #region ScreenCheck

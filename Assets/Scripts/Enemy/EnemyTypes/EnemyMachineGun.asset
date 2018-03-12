@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: EnemyMachineGun
   m_EditorClassIdentifier: 
   movementSpeed: 0.01
-  life: 1
+  life: 2
   score: 2
   bulletType: {fileID: 11400000, guid: 0cf050562cdb3764ab5831dedd2c5bbd, type: 2}

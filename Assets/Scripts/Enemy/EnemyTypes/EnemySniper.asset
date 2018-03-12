@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: EnemySniper
   m_EditorClassIdentifier: 
   movementSpeed: 0.03
-  life: 1
+  life: 3
   score: 1
   bulletType: {fileID: 11400000, guid: b3c02726e979c424596130f06ddba7fa, type: 2}

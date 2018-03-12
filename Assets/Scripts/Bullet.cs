@@ -5,7 +5,6 @@ using UnityEngine;
 public class Bullet : MonoBehaviour, IPoolManager
 {
     #region TypesDeclarations
-    public delegate void BulletCollisionEvent(Bullet bullet, Collider collider);
     public State Currentstate
     {
         get
@@ -18,18 +17,29 @@ public class Bullet : MonoBehaviour, IPoolManager
             currentState = value;
         }
     }
+    public GameObject ownerObject
+    {
+        get
+        {
+            return ownerobject;
+        }
+        set
+        {
+            ownerobject = value;
+        }
+    }
     #endregion
     #region VariablesDeclarations
     public event PoolManagerEvets.Events OnObjectSpawn;
     public event PoolManagerEvets.Events OnObjectDestroy;
-    public BulletCollisionEvent OnBulletCollision;
+    ShootTypes shootingType;
     private State currentState;
+    private GameObject ownerobject;
     #endregion
 
     #region API
     public void DestroyMe()
     {
-        OnBulletCollision = null;
         if (OnObjectDestroy != null)
             OnObjectDestroy(this);
     }
@@ -37,12 +47,13 @@ public class Bullet : MonoBehaviour, IPoolManager
     #region Shoot
     float force;
     Vector3 direction;
-    public void Shoot(Vector3 _direction, float _force)
+    public void Shoot(Vector3 _direction, float _force, ShootTypes _shootingType)
     {
         if (OnObjectSpawn != null)
             OnObjectSpawn(this);
         direction = _direction;
         force = _force;
+        shootingType = _shootingType;
     }
     #endregion
 
@@ -67,9 +78,10 @@ public class Bullet : MonoBehaviour, IPoolManager
     {
         if (Currentstate == State.InUse)
         {
-            if (OnBulletCollision != null)
+            IDamageSystem damaged = other.GetComponent<IDamageSystem>();
+            if (damaged != null)
             {
-                OnBulletCollision(this, other);
+                damaged.Damaged(shootingType,this);
             }
             DestroyMe();
         }
