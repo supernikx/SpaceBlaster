@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(PlayerScore))]
 public class PlayerDamageSystem : MonoBehaviour, IDamageSystem
 {
 
@@ -10,14 +11,11 @@ public class PlayerDamageSystem : MonoBehaviour, IDamageSystem
     public Text lifeText;
     public int life;
 
-    [Header("Score")]
-    public Text scoreText;
-    public int score;
-
+    PlayerScore ScoreController;
 
     private void Start()
     {
-        score = 0;
+        ScoreController = GetComponent<PlayerScore>();
     }
 
     public void Damaged(ShootTypes bulletType, Bullet bulletHitted)
@@ -36,8 +34,7 @@ public class PlayerDamageSystem : MonoBehaviour, IDamageSystem
 
     public void KilledEnemy(GameObject enemyKilled)
     {
-        score += enemyKilled.GetComponent<EnemyController>().enemyType.score;
-        scoreText.text = "SCORE = " + score;
+        ScoreController.Score += enemyKilled.GetComponent<EnemyController>().enemyType.score;
     }
 
     public void KillMe()
