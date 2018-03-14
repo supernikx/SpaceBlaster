@@ -1,29 +1,28 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreController : MonoBehaviour {
+public class PlayerLifeController : MonoBehaviour {
 
     public Text scoreText;
-    public PlayerScore playerToCheck;
+    public PlayerDamageSystem playerToCheck;
 
     private void OnEnable()
     {
-        EventManager.OnScoreUpdated += ScoreUpdate;
+        EventManager.OnPlayerDamaged += PlayerDamaged;
     }
 
     private void OnDisable()
     {
-        EventManager.OnScoreUpdated -= ScoreUpdate;
+        EventManager.OnPlayerDamaged -= PlayerDamaged;
     }
 
-    private void ScoreUpdate(PlayerScore player)
+    private void PlayerDamaged(PlayerDamageSystem player)
     {
         if (playerToCheck == player)
         {
-            scoreText.text = "SCORE = " + player.Score.ToString();
+            scoreText.text = "LIFE = " + player.life;
         }
     }
 

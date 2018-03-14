@@ -6,6 +6,5 @@ public interface IDamageSystem
 {
 
     void Damaged(ShootTypes bulletType, Bullet bulletHitted);
-    void KilledEnemy(GameObject enemyKilled);
 
 }

@@ -12,7 +12,7 @@ public enum State
     InUse,
 }
 
-public interface IPoolManager{
+public interface IPoolManager {
     State Currentstate { get; set; }
     GameObject ownerObject { get; set; }
     event PoolManagerEvets.Events OnObjectSpawn;

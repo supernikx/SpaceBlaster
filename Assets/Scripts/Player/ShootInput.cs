@@ -1,13 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerScore))]
 public class ShootInput : MonoBehaviour {
     [Header("Shoot Settings")]
     public KeyCode shootInput = KeyCode.Space;
     public ShootTypes shoottype;
     public Transform shootPosition;
     PoolManager pool;
+    PlayerScore scoreController;
 
     private void Awake()
     {
@@ -16,7 +19,8 @@ public class ShootInput : MonoBehaviour {
 
     private void Start()
     {
-        pool = PoolManager.instance;   
+        pool = PoolManager.instance;
+        scoreController = GetComponent<PlayerScore>();
     }
 
     // Update is called once per frame
@@ -29,8 +33,22 @@ public class ShootInput : MonoBehaviour {
 
     void Shoot()
     {
-        Bullet bulletToShoot = pool.GetPooledObject(ObjectTypes.bullet,gameObject).GetComponent<Bullet>();
+        Bullet bulletToShoot = pool.GetPooledObject(ObjectTypes.bullet, gameObject).GetComponent<Bullet>();
         bulletToShoot.transform.position = shootPosition.position;
-        bulletToShoot.Shoot(transform.forward, shoottype.bulletForce,shoottype);
+        bulletToShoot.OnObjectDestroy += OnBulletDestroy;
+        bulletToShoot.OnEnemyKill += OnEnemyKilled;
+        bulletToShoot.Shoot(transform.forward, shoottype.bulletForce, shoottype);
+    }
+
+    private void OnEnemyKilled(EnemyController enemyKilled, Bullet bullet)
+    {
+        scoreController.Score += enemyKilled.enemyType.score;
+        bullet.OnEnemyKill -= OnEnemyKilled;
+    }
+
+    private void OnBulletDestroy(IPoolManager _gameObject)
+    {
+        _gameObject.OnObjectDestroy -= OnBulletDestroy;
+        ((Bullet)_gameObject).OnEnemyKill -= OnEnemyKilled;
     }
 }

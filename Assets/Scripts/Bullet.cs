@@ -28,10 +28,12 @@ public class Bullet : MonoBehaviour, IPoolManager
             ownerobject = value;
         }
     }
+    public delegate void BulletKillEvent(EnemyController enemyKilled, Bullet bullet);
     #endregion
     #region VariablesDeclarations
     public event PoolManagerEvets.Events OnObjectSpawn;
     public event PoolManagerEvets.Events OnObjectDestroy;
+    public BulletKillEvent OnEnemyKill;
     ShootTypes shootingType;
     private State currentState;
     private GameObject ownerobject;

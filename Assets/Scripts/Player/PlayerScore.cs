@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerDamageSystem))]
 public class PlayerScore : MonoBehaviour
 {
 

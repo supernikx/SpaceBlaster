@@ -105,21 +105,15 @@ public class EnemyController : MonoBehaviour, IPoolManager, IDamageSystem
             instanceEnemy.life -= bulletType.damage;
             if (instanceEnemy.life <= 0)
             {
-                bulletHitted.ownerObject.GetComponent<IDamageSystem>().KilledEnemy(gameObject);
+                bulletHitted.OnEnemyKill(this, bulletHitted);
                 KillMe();
             }
         }
     }
 
-    public void KilledEnemy(GameObject enemyKilled)
-    {
-        enemyKilled.SetActive(false);
-        Debug.Log("Game Over");
-    }
-
     private void Shoot()
     {
-        Bullet bulletToShoot = pool.GetPooledObject(ObjectTypes.bullet,gameObject).GetComponent<Bullet>();
+        Bullet bulletToShoot = pool.GetPooledObject(ObjectTypes.bullet, gameObject).GetComponent<Bullet>();
         bulletToShoot.transform.position = shootPoint.position;
         bulletToShoot.Shoot(transform.forward, instanceEnemy.bulletType.bulletForce, instanceEnemy.bulletType);
     }
