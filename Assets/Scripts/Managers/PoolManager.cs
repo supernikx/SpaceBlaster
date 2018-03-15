@@ -5,6 +5,7 @@ using UnityEngine;
 public enum ObjectTypes
 {
     standardBullet,
+    missileBullet,
     enemy,
 }
 
@@ -50,21 +51,21 @@ public class PoolManager : MonoBehaviour {
 
     private void OnObjectDestroy(IPoolManager objectToDestroy)
     {
-        objectToDestroy.Currentstate = State.InPool;
+        objectToDestroy.CurrentState = State.InPool;
         objectToDestroy.ownerObject = null;
         objectToDestroy.gameObject.transform.position = poolPosition;
     }
 
     private void OnObjectSpawn(IPoolManager objectToSpawn)
     {
-        objectToSpawn.Currentstate = State.InUse;
+        objectToSpawn.CurrentState = State.InUse;
     }
 
     public GameObject GetPooledObject(ObjectTypes type, GameObject callingObject)
     {
         foreach (IPoolManager _object in poolDictionary[type])
         {
-            if (_object.Currentstate == State.InPool)
+            if (_object.CurrentState == State.InPool)
             {
                 _object.ownerObject = callingObject;
                 return _object.gameObject;

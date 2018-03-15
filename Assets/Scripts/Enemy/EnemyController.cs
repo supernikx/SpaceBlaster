@@ -6,16 +6,16 @@ public class EnemyController : MonoBehaviour, IPoolManager, IDamageSystem
 {
     #region TypesDeclarations
     public delegate void EnemyEvent(EnemyController enemy);
-    public State Currentstate
+    public State CurrentState
     {
         get
         {
-            return currentState;
+            return _currentState;
         }
 
         set
         {
-            currentState = value;
+            _currentState = value;
         }
     }
     public GameObject ownerObject
@@ -34,7 +34,7 @@ public class EnemyController : MonoBehaviour, IPoolManager, IDamageSystem
     public EnemyTypes enemyType;
     EnemyTypes instanceEnemy;
     PoolManager pool;
-    private State currentState;
+    private State _currentState;
     public Transform shootPoint;
     private float rateoTimer;
     public event PoolManagerEvets.Events OnObjectSpawn;
@@ -52,7 +52,7 @@ public class EnemyController : MonoBehaviour, IPoolManager, IDamageSystem
     // Update is called once per frame
     void Update()
     {
-        if (Currentstate == State.InUse)
+        if (CurrentState == State.InUse)
         {
             #region ShootRateo
             rateoTimer += Time.deltaTime;
@@ -82,6 +82,7 @@ public class EnemyController : MonoBehaviour, IPoolManager, IDamageSystem
 
     public void Spawn(Vector3 spawnPosition, EnemyTypes type)
     {
+        _currentState = State.InUse;
         if (OnObjectSpawn != null)
         {
             OnObjectSpawn(this);
@@ -94,11 +95,12 @@ public class EnemyController : MonoBehaviour, IPoolManager, IDamageSystem
 
     public void KillMe()
     {
+        _currentState = State.InPool;
         if (OnObjectDestroy != null)
             OnObjectDestroy(this);
     }
 
-    public void Damaged(ShootTypes bulletType, StandardBullet bulletHitted)
+    public void Damaged(ShootTypes bulletType, BulletBase bulletHitted)
     {
         if (bulletHitted.ownerObject.tag == "Player")
         {
@@ -113,7 +115,7 @@ public class EnemyController : MonoBehaviour, IPoolManager, IDamageSystem
 
     private void Shoot()
     {
-        StandardBullet bulletToShoot = pool.GetPooledObject(ObjectTypes.standardBullet, gameObject).GetComponent<StandardBullet>();
+        BulletStandard bulletToShoot = pool.GetPooledObject(ObjectTypes.standardBullet, gameObject).GetComponent<BulletStandard>();
         bulletToShoot.transform.position = shootPoint.position;
         bulletToShoot.Shoot(transform.forward, instanceEnemy.bulletType.bulletForce, instanceEnemy.bulletType);
     }

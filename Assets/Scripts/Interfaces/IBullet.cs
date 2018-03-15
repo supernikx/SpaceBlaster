@@ -2,7 +2,7 @@
 
 public class IBulletEvents
 {
-    public delegate void BulletKillEvent(EnemyController enemyKilled, StandardBullet bullet);
+    public delegate void BulletKillEvent(EnemyController enemyKilled, BulletBase bullet);
 }
 
 

@@ -14,9 +14,13 @@ public enum State
 }
 
 public interface IPoolManager {
-    State Currentstate { get; set; }
     GameObject ownerObject { get; set; }
     GameObject gameObject { get; }
+    State CurrentState
+    {
+        get;
+        set;
+    }
     event PoolManagerEvets.Events OnObjectSpawn;
     event PoolManagerEvets.Events OnObjectDestroy;
 }
