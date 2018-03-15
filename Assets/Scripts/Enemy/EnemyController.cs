@@ -113,7 +113,7 @@ public class EnemyController : MonoBehaviour, IPoolManager, IDamageSystem
 
     private void Shoot()
     {
-        StandardBullet bulletToShoot = pool.GetPooledObject(ObjectTypes.bullet, gameObject).GetComponent<StandardBullet>();
+        StandardBullet bulletToShoot = pool.GetPooledObject(ObjectTypes.standardBullet, gameObject).GetComponent<StandardBullet>();
         bulletToShoot.transform.position = shootPoint.position;
         bulletToShoot.Shoot(transform.forward, instanceEnemy.bulletType.bulletForce, instanceEnemy.bulletType);
     }

@@ -40,6 +40,14 @@ public class StandardBullet : MonoBehaviour, IPoolManager,IBullet
             _OnEnemyKill = value;
         }
     }
+
+    public ObjectTypes objectID
+    {
+        get
+        {
+            return ObjectTypes.standardBullet;
+        }
+    }
     #endregion
     #region VariablesDeclarations
     public event PoolManagerEvets.Events OnObjectSpawn;

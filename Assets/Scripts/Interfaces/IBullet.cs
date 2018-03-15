@@ -8,7 +8,7 @@ public class IBulletEvents
 
 public interface IBullet
 {
-
+    ObjectTypes objectID { get; }
     void Shoot(Vector3 _direction, float _force, ShootTypes _shootingType);
     void DestroyMe();
     void DestroyVisualEffect();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum ObjectTypes
 {
-    bullet,
+    standardBullet,
     enemy,
 }
 

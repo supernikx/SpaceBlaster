@@ -33,7 +33,7 @@ public class ShootInput : MonoBehaviour {
 
     void Shoot()
     {
-        StandardBullet bulletToShoot = pool.GetPooledObject(ObjectTypes.bullet, gameObject).GetComponent<StandardBullet>();
+        StandardBullet bulletToShoot = pool.GetPooledObject(ObjectTypes.standardBullet, gameObject).GetComponent<StandardBullet>();
         bulletToShoot.transform.position = shootPosition.position;
         bulletToShoot.OnObjectDestroy += OnBulletDestroy;
         bulletToShoot.OnEnemyKill += OnEnemyKilled;
