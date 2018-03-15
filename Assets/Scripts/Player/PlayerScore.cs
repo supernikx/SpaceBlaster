@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerScore : MonoBehaviour
 {
-
     private int _score;
 
     public int Score

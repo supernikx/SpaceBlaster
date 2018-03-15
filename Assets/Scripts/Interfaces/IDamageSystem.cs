@@ -5,6 +5,6 @@ using UnityEngine;
 public interface IDamageSystem
 {
 
-    void Damaged(ShootTypes bulletType, Bullet bulletHitted);
+    void Damaged(ShootTypes bulletType, StandardBullet bulletHitted);
 
 }

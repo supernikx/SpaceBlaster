@@ -9,7 +9,7 @@ public class PlayerDamageSystem : MonoBehaviour, IDamageSystem
     [Header("Life")]
     public int life;
 
-    public void Damaged(ShootTypes bulletType, Bullet bulletHitted)
+    public void Damaged(ShootTypes bulletType, StandardBullet bulletHitted)
     {
         if (bulletHitted.ownerObject.tag == "Enemy")
         {

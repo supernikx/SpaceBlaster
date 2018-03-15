@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour, IPoolManager
+public class StandardBullet : MonoBehaviour, IPoolManager,IBullet
 {
     #region TypesDeclarations
     public State Currentstate
@@ -28,12 +28,23 @@ public class Bullet : MonoBehaviour, IPoolManager
             ownerobject = value;
         }
     }
-    public delegate void BulletKillEvent(EnemyController enemyKilled, Bullet bullet);
+    public IBulletEvents.BulletKillEvent OnEnemyKill
+    {
+        get
+        {
+            return _OnEnemyKill;
+        }
+
+        set
+        {
+            _OnEnemyKill = value;
+        }
+    }
     #endregion
     #region VariablesDeclarations
     public event PoolManagerEvets.Events OnObjectSpawn;
     public event PoolManagerEvets.Events OnObjectDestroy;
-    public BulletKillEvent OnEnemyKill;
+    private IBulletEvents.BulletKillEvent _OnEnemyKill;
     ShootTypes shootingType;
     private State currentState;
     private GameObject ownerobject;
@@ -42,8 +53,14 @@ public class Bullet : MonoBehaviour, IPoolManager
     #region API
     public void DestroyMe()
     {
+        Currentstate = State.Destroying;
         if (OnObjectDestroy != null)
             OnObjectDestroy(this);
+    }
+
+    public void DestroyVisualEffect()
+    {
+        Currentstate = State.InPool;
     }
 
     #region Shoot

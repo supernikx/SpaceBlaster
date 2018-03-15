@@ -33,14 +33,14 @@ public class ShootInput : MonoBehaviour {
 
     void Shoot()
     {
-        Bullet bulletToShoot = pool.GetPooledObject(ObjectTypes.bullet, gameObject).GetComponent<Bullet>();
+        StandardBullet bulletToShoot = pool.GetPooledObject(ObjectTypes.bullet, gameObject).GetComponent<StandardBullet>();
         bulletToShoot.transform.position = shootPosition.position;
         bulletToShoot.OnObjectDestroy += OnBulletDestroy;
         bulletToShoot.OnEnemyKill += OnEnemyKilled;
         bulletToShoot.Shoot(transform.forward, shoottype.bulletForce, shoottype);
     }
 
-    private void OnEnemyKilled(EnemyController enemyKilled, Bullet bullet)
+    private void OnEnemyKilled(EnemyController enemyKilled, StandardBullet bullet)
     {
         scoreController.Score += enemyKilled.enemyType.score;
         bullet.OnEnemyKill -= OnEnemyKilled;
@@ -49,6 +49,6 @@ public class ShootInput : MonoBehaviour {
     private void OnBulletDestroy(IPoolManager _gameObject)
     {
         _gameObject.OnObjectDestroy -= OnBulletDestroy;
-        ((Bullet)_gameObject).OnEnemyKill -= OnEnemyKilled;
+        ((StandardBullet)_gameObject).OnEnemyKill -= OnEnemyKilled;
     }
 }

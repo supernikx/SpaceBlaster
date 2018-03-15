@@ -98,7 +98,7 @@ public class EnemyController : MonoBehaviour, IPoolManager, IDamageSystem
             OnObjectDestroy(this);
     }
 
-    public void Damaged(ShootTypes bulletType, Bullet bulletHitted)
+    public void Damaged(ShootTypes bulletType, StandardBullet bulletHitted)
     {
         if (bulletHitted.ownerObject.tag == "Player")
         {
@@ -113,7 +113,7 @@ public class EnemyController : MonoBehaviour, IPoolManager, IDamageSystem
 
     private void Shoot()
     {
-        Bullet bulletToShoot = pool.GetPooledObject(ObjectTypes.bullet, gameObject).GetComponent<Bullet>();
+        StandardBullet bulletToShoot = pool.GetPooledObject(ObjectTypes.bullet, gameObject).GetComponent<StandardBullet>();
         bulletToShoot.transform.position = shootPoint.position;
         bulletToShoot.Shoot(transform.forward, instanceEnemy.bulletType.bulletForce, instanceEnemy.bulletType);
     }
