@@ -64,7 +64,6 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
     protected Vector3 direction;
     public virtual void Shoot(Vector3 _direction, float _force, ShootTypes _shootingType)
     {
-        CurrentState = State.InUse;
         if (OnObjectSpawn != null)
             OnObjectSpawn(this);
         direction = _direction;
