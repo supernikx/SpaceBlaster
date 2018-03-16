@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4969237902232238}
-  - component: {fileID: 136399483452304066}
+  - component: {fileID: 65101318357477178}
   - component: {fileID: 114578455038265178}
   m_Layer: 0
   m_Name: BulletMissile
@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1646930619948238}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: -0, z: 4.6}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.5}
   m_Children: []
   m_Father: {fileID: 4969237902232238}
@@ -65,7 +65,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1421699496289104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 3.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4604876064718240}
@@ -113,6 +113,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1646930619948238}
   m_Mesh: {fileID: 4300300, guid: 99a646733e69a954c94a187e15cf30f9, type: 3}
+--- !u!65 &65101318357477178
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1421699496289104}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.13022643, y: 0.14620376, z: 1.3717551}
+  m_Center: {x: 0.0074163377, y: -0.0062230825, z: 0.018632174}
 --- !u!114 &114578455038265178
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -124,16 +136,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d36ea9480cc9c7941a8e6d55b1723d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &136399483452304066
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1421699496289104}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  Stats: {fileID: 11400000, guid: 7d01c6ca1c91b5442bcbf4b49d909b8e, type: 2}

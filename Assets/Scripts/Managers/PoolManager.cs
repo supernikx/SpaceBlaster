@@ -4,9 +4,10 @@ using UnityEngine;
 
 public enum ObjectTypes
 {
-    standardBullet,
-    missileBullet,
-    enemy,
+    BulletStandard,
+    BulletMissile,
+    EnemyStandard,
+    EnemyRocketLauncher,
 }
 
 [System.Serializable]

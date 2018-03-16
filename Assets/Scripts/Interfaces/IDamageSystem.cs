@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IDamageSystem
-{
-
-    void Damaged(ShootTypes bulletType, BulletBase bulletHitted);
+{ 
+    void Damaged(BulletBase bulletHitted);
 }

@@ -36,8 +36,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4476952856499878}
-  - component: {fileID: 114885028651993052}
   - component: {fileID: 136328061604148544}
+  - component: {fileID: 114885028651993052}
   m_Layer: 0
   m_Name: BulletStandard
   m_TagString: Untagged
@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed39d4f6da9b334297a6c396c732322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Stats: {fileID: 11400000, guid: 15cf7463f7b333642a8fe42e6b958441, type: 2}
 --- !u!136 &136328061604148544
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu (fileName = "NewEnemy", menuName = "Enemy")]
-public class EnemyTypes : ScriptableObject {
+[CreateAssetMenu (fileName = "NewEnemy", menuName = "EnemyStats")]
+public class EnemyStats : ScriptableObject {
 
     public float movementSpeed;
     public int life;
     public int score;
-    public ShootTypes bulletType;
+
 }

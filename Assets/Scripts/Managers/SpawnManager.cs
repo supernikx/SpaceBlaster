@@ -7,7 +7,7 @@ public class SpawnManager : MonoBehaviour {
     PoolManager pool;
     public float spawnTime;
     float spawnTimer, screenHeight, screenWidth;
-    public List<EnemyTypes> enemyTypes = new List<EnemyTypes>();
+    public List<EnemyBase> enemyTypes = new List<EnemyBase>();
 
 	void Start () {
         pool = PoolManager.instance;
@@ -19,11 +19,9 @@ public class SpawnManager : MonoBehaviour {
         spawnTimer += Time.deltaTime;
         if (spawnTimer > spawnTime)
         {
-            EnemyController enemyToSpawn;
-            enemyToSpawn = pool.GetPooledObject(ObjectTypes.enemy,gameObject).GetComponent<EnemyController>();
-            screenWidth = Camera.main.orthographicSize * Camera.main.aspect - enemyToSpawn.transform.localScale.magnitude;
-            Random.Range(screenWidth,-screenWidth);
-            enemyToSpawn.Spawn(new Vector3(Random.Range(screenWidth, -screenWidth), transform.position.y, screenHeight), enemyTypes[Random.Range(0, enemyTypes.Count)]);
+            EnemyBase enemyPooled = pool.GetPooledObject(enemyTypes[Random.Range(0, enemyTypes.Count)].objectID,gameObject).GetComponent<EnemyBase>();
+            screenWidth = Camera.main.orthographicSize * Camera.main.aspect - enemyPooled.transform.localScale.magnitude;
+            enemyPooled.Spawn(new Vector3(Random.Range(screenWidth, -screenWidth), transform.position.y, screenHeight));
             spawnTimer = 0f;
         }
 	}

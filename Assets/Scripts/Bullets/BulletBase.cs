@@ -6,6 +6,9 @@ using UnityEngine;
 
 public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
 {
+    #region variablesDeclarations
+
+    public BulletStats Stats;
 
     private State _currentState;
     public State CurrentState
@@ -14,9 +17,6 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
         set { _currentState = value; }
     }
 
-    public event PoolManagerEvets.Events OnObjectSpawn;
-    public event PoolManagerEvets.Events OnObjectDestroy;
-
     public ObjectTypes objectID
     {
         get
@@ -24,16 +24,7 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
             return getID();
         }
     }
-
     protected abstract ObjectTypes getID();
-
-    public IBulletEvents.BulletKillEvent OnEnemyKill
-    {
-
-        get { return _OnEnemyKill; }
-        set { _OnEnemyKill = value; }
-    }
-    private IBulletEvents.BulletKillEvent _OnEnemyKill;
 
     public GameObject ownerObject
     {
@@ -48,6 +39,25 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
     }
     private GameObject ownerobject;
 
+    #endregion
+
+    #region EventsDeclarations
+
+    public event PoolManagerEvets.Events OnObjectSpawn;
+    public event PoolManagerEvets.Events OnObjectDestroy;
+
+    public IBulletEvents.BulletKillEvent OnEnemyKill
+    {
+
+        get { return _OnEnemyKill; }
+        set { _OnEnemyKill = value; }
+    }
+    private IBulletEvents.BulletKillEvent _OnEnemyKill;
+
+    #endregion
+
+    #region DestroyFunctions
+
     public void DestroyMe()
     {
         if (OnObjectDestroy != null)
@@ -56,23 +66,38 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
 
     public void DestroyVisualEffect()
     {
-        CurrentState = State.InPool;
+        
     }
 
+    #endregion
+
     #region Shoot
-    protected float force;
     protected Vector3 direction;
-    public virtual void Shoot(Vector3 _direction, float _force, ShootTypes _shootingType)
+    public virtual void Shoot(Vector3 _direction)
     {
         if (OnObjectSpawn != null)
             OnObjectSpawn(this);
         direction = _direction;
-        force = _force;
-        shootingType = _shootingType;
     }
     #endregion
 
-    public void Start()
+    #region ScreenCheck
+    float screenHeight;
+
+    private bool CheckScreenPosition()
+    {
+        if (transform.position.z > screenHeight * 2 || transform.position.z < -screenHeight)
+            return true;
+        return false;
+    }
+    #endregion
+
+    private void Start()
+    {
+        StartDefault();
+    }
+
+    protected virtual void StartDefault()
     {
         screenHeight = Camera.main.orthographicSize;
     }
@@ -82,17 +107,16 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
         FixedUpdateDefault();
     }
 
-    public virtual void FixedUpdateDefault()
+    protected virtual void FixedUpdateDefault()
     {
         if (CurrentState == State.InUse)
         {
-            transform.position += direction * force;
+            transform.position += direction * Stats.bulletSpeed;
             if (CheckScreenPosition())
                 DestroyMe();
         }
     }
 
-    private ShootTypes shootingType;
     private void OnTriggerEnter(Collider other)
     {
         OnTriggerEnterDefault(other);
@@ -105,21 +129,9 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
             IDamageSystem damaged = other.GetComponent<IDamageSystem>();
             if (damaged != null)
             {
-                damaged.Damaged(shootingType, this);
+                damaged.Damaged(this);
             }
             DestroyMe();
         }
     }
-
-
-    #region ScreenCheck
-    float screenHeight;
-
-    private bool CheckScreenPosition()
-    {
-        if (transform.position.z > screenHeight * 2 || transform.position.z < -screenHeight)
-            return true;
-        return false;
-    }
-    #endregion
 }

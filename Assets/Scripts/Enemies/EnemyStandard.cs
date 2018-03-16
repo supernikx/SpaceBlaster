@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MissileBullet : BulletBase
+public class EnemyStandard : EnemyBase
 {
     protected override ObjectTypes getID()
     {
-        return ObjectTypes.missileBullet;
+        return ObjectTypes.EnemyStandard;
     }
-
-
 }

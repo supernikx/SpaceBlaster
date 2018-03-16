@@ -9,11 +9,11 @@ public class PlayerDamageSystem : MonoBehaviour, IDamageSystem
     [Header("Life")]
     public int life;
 
-    public void Damaged(ShootTypes bulletType, BulletBase bulletHitted)
+    public void Damaged(BulletBase bulletHitted)
     {
         if (bulletHitted.ownerObject.tag == "Enemy")
         {
-            life -= bulletType.damage;
+            life -= bulletHitted.Stats.damage;
             EventManager.OnPlayerDamaged(this);
             if (life <= 0)
             {

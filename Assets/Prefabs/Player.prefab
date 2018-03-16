@@ -221,7 +221,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootInput: 32
-  shoottype: {fileID: 11400000, guid: 8f3c40a725fbf5e449b9efabe9416899, type: 2}
+  BulletType: {fileID: 114885028651993052, guid: 5c543247cc8e77b4a97c0db09a0e4a70,
+    type: 2}
   shootPosition: {fileID: 4745648921020608}
 --- !u!114 &114932332462320784
 MonoBehaviour:

@@ -9,7 +9,7 @@ public class BulletStandard : BulletBase
     #region VariablesDeclarations
     protected override ObjectTypes getID()
     {
-        return ObjectTypes.standardBullet;
+        return ObjectTypes.BulletStandard;
     }
     #endregion
 

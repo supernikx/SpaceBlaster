@@ -8,9 +8,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e63571720e44f7d48b01ddf3f615a8c8, type: 3}
-  m_Name: Slow
+  m_Script: {fileID: 11500000, guid: 1d355f22bf50d0f4696903756beb6a90, type: 3}
+  m_Name: EnemyStandardStats
   m_EditorClassIdentifier: 
-  fireRateo: 1
-  bulletForce: 0.1
-  damage: 1
+  movementSpeed: 2.5
+  life: 1
+  score: 1
