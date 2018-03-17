@@ -12,12 +12,4 @@ public class BulletStandard : BulletBase
         return ObjectTypes.BulletStandard;
     }
     #endregion
-
-    #region API
-    #region Shoot
-
-    #endregion
-
-    #endregion
-
 }
