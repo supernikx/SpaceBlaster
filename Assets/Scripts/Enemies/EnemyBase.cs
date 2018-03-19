@@ -56,7 +56,8 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, IPoolManager, IDamageSy
     #endregion
 
     #region ScreenCheck
-    float screenHeight;
+    protected float screenHeight;
+    protected float screenWidth;
     private bool CheckScreenPosition()
     {
         if (transform.position.z < -screenHeight)
@@ -92,7 +93,8 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, IPoolManager, IDamageSy
     protected virtual void StartDefault()
     {
         pool = PoolManager.instance;
-        screenHeight = Camera.main.orthographicSize;
+        screenHeight = Camera.main.orthographicSize-Camera.main.transform.position.z;
+        screenWidth = (screenHeight * Screen.width / Screen.height)- transform.localScale.magnitude;
         Setup();
     }
 
@@ -106,16 +108,14 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, IPoolManager, IDamageSy
         {
             ShootRateo();
             Movement();
+            if (CheckScreenPosition())
+                DestroyMe();
         }
     }
 
     protected virtual void Movement()
     {
         transform.position += transform.forward * instanceStats.movementSpeed * Time.deltaTime;
-        if (CheckScreenPosition())
-        {
-            DestroyMe();
-        }
     }
 
     public virtual void Damaged(BulletBase bulletHitted)

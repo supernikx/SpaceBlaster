@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d355f22bf50d0f4696903756beb6a90, type: 3}
   m_Name: EnemyRocketLauncherStats
   m_EditorClassIdentifier: 
-  movementSpeed: 1.5
+  movementSpeed: 3.5
   life: 2
   score: 2

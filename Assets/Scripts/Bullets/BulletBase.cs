@@ -86,7 +86,7 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
 
     private bool CheckScreenPosition()
     {
-        if (transform.position.z > screenHeight * 2 || transform.position.z < -screenHeight)
+        if (transform.position.z > screenHeight || transform.position.z < -screenHeight)
             return true;
         return false;
     }
@@ -99,7 +99,7 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
 
     protected virtual void StartDefault()
     {
-        screenHeight = Camera.main.orthographicSize;
+        screenHeight = Camera.main.orthographicSize - Camera.main.transform.position.z;
     }
 
     private void FixedUpdate()

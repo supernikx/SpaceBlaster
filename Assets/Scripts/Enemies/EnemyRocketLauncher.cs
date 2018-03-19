@@ -4,34 +4,31 @@ using UnityEngine;
 
 public class EnemyRocketLauncher : EnemyBase
 {
-    float screenWidth;
     bool right;
+    Vector3 oldPosition;
     protected override ObjectTypes getID()
     {
         return ObjectTypes.EnemyRocketLauncher;
     }
 
-    protected override void StartDefault()
-    {
-        base.StartDefault();
-        screenWidth = Camera.main.orthographicSize * Camera.main.aspect - transform.localScale.magnitude;
-    }
-
     protected override void Movement()
     {
-        if (right)
+        if ((transform.position.x > screenWidth || transform.position.x < -screenWidth) && (oldPosition.z - 3f < transform.position.z))
         {
-            transform.position += transform.right * Stats.movementSpeed * Time.deltaTime;
+            transform.position += transform.forward * Stats.movementSpeed * Time.deltaTime;
+            if (oldPosition.z - 3f > transform.position.z)
+                right = !right;
         }
         else
         {
-            transform.position += -transform.right * Stats.movementSpeed * Time.deltaTime;
-        }
-
-        if (transform.position.x>screenWidth || transform.position.x < -screenWidth)
-        {
-            transform.position += new Vector3(0, 0, -2f);
-            right = !right;
+            if (right)
+            {
+                oldPosition = transform.position += transform.right * Stats.movementSpeed * Time.deltaTime;
+            }
+            else
+            {
+                oldPosition = transform.position += -transform.right * Stats.movementSpeed * Time.deltaTime;
+            }
         }
     }
 }

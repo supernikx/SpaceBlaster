@@ -11,7 +11,7 @@ public class SpawnManager : MonoBehaviour {
 
 	void Start () {
         pool = PoolManager.instance;
-        screenHeight = Camera.main.orthographicSize*2;
+        screenHeight = Camera.main.orthographicSize+Camera.main.transform.position.z;
     }
 	
 	// Update is called once per frame
