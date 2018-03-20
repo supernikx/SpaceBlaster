@@ -182,7 +182,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Stats: {fileID: 11400000, guid: 69a0d80aa71f1a640b934a80624ca04b, type: 2}
-  shootingBullet: {fileID: 114885028651993052, guid: 5c543247cc8e77b4a97c0db09a0e4a70,
+  shootingBulletPrefab: {fileID: 114885028651993052, guid: 5c543247cc8e77b4a97c0db09a0e4a70,
     type: 2}
   shootPoint: {fileID: 4974581383791276}
-  test: {fileID: 4974581383791276}

@@ -7,7 +7,7 @@ using UnityEngine;
 public class ShootInput : MonoBehaviour {
     [Header("Shoot Settings")]
     public KeyCode shootInput = KeyCode.Space;
-    public BulletBase BulletType;
+    public BulletBase BulletTypePrefab;
     public Transform shootPosition;
     PoolManager pool;
     PlayerScore scoreController;
@@ -33,11 +33,11 @@ public class ShootInput : MonoBehaviour {
 
     void Shoot()
     {
-        BulletBase bulletToShoot = pool.GetPooledObject(BulletType.objectID, gameObject).GetComponent<BulletBase>();
+        BulletBase bulletToShoot = pool.GetPooledObject(BulletTypePrefab.objectID, gameObject).GetComponent<BulletBase>();
         bulletToShoot.transform.position = shootPosition.position;
         bulletToShoot.OnObjectDestroy += OnBulletDestroy;
         bulletToShoot.OnEnemyKill += OnEnemyKilled;
-        bulletToShoot.Shoot(transform.forward);
+        bulletToShoot.Shoot(shootPosition.forward);
     }
 
     private void OnEnemyKilled(EnemyBase enemyKilled, BulletBase bullet)

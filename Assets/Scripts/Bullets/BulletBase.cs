@@ -39,7 +39,7 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
     }
     private GameObject ownerobject;
 
-    private Quaternion startRotation;
+    protected Quaternion startRotation;
 
     #endregion
 
@@ -60,14 +60,13 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
 
     #region DestroyFunctions
 
-    public void DestroyMe()
+    public virtual void DestroyMe()
     {
-        transform.rotation = startRotation;
         if (OnObjectDestroy != null)
             OnObjectDestroy(this);
     }
 
-    public void DestroyVisualEffect()
+    public virtual void DestroyVisualEffect()
     {
         
     }

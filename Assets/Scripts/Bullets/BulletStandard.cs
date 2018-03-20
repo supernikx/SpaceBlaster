@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class BulletStandard : BulletBase
 {
-    #region TypesDeclarations
-    #endregion
     #region VariablesDeclarations
     protected override ObjectTypes getID()
     {
         return ObjectTypes.BulletStandard;
     }
     #endregion
+
+    public override void DestroyMe()
+    {
+        transform.rotation = startRotation;
+        base.DestroyMe();
+    }
 }

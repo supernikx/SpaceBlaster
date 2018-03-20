@@ -11,7 +11,7 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, IPoolManager, IDamageSy
     private EnemyStats instanceStats;
 
     [Header("Shooting Settings")]
-    public BulletBase shootingBullet;
+    public BulletBase shootingBulletPrefab;
     public Transform shootPoint;
 
     public ObjectTypes objectID
@@ -70,14 +70,14 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, IPoolManager, IDamageSy
 
     public virtual void Shoot()
     {
-        BulletBase bulletToShoot = pool.GetPooledObject(shootingBullet.objectID, gameObject).GetComponent<BulletBase>();
+        BulletBase bulletToShoot = pool.GetPooledObject(shootingBulletPrefab.objectID, gameObject).GetComponent<BulletBase>();
         bulletToShoot.transform.position = shootPoint.position;
-        bulletToShoot.Shoot(transform.forward);
+        bulletToShoot.Shoot(shootPoint.forward);
     }
     protected virtual void ShootRateo()
     {
         rateoTimer += Time.deltaTime;
-        if (rateoTimer > shootingBullet.Stats.fireRate)
+        if (rateoTimer > shootingBulletPrefab.Stats.fireRate)
         {
             Shoot();
             rateoTimer = 0;
