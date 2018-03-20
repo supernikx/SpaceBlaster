@@ -44,7 +44,7 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, IPoolManager, IDamageSy
     private GameObject ownerobject;
 
     protected PoolManager pool;
-    private float rateoTimer;
+    protected float rateoTimer;
 
     #endregion
 
@@ -68,7 +68,7 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, IPoolManager, IDamageSy
 
     #region Shoot
 
-    protected virtual void Shoot()
+    public virtual void Shoot()
     {
         BulletBase bulletToShoot = pool.GetPooledObject(shootingBullet.objectID, gameObject).GetComponent<BulletBase>();
         bulletToShoot.transform.position = shootPoint.position;
@@ -113,7 +113,7 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, IPoolManager, IDamageSy
         }
     }
 
-    protected virtual void Movement()
+    public virtual void Movement()
     {
         transform.position += transform.forward * instanceStats.movementSpeed * Time.deltaTime;
     }
@@ -147,6 +147,7 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, IPoolManager, IDamageSy
         }
         rateoTimer = 0;
         transform.position = spawnPosition;
+        Setup();
     }
 
     #region DestroyFunctions

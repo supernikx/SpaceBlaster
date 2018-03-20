@@ -11,7 +11,13 @@ public class EnemyRocketLauncher : EnemyBase
         return ObjectTypes.EnemyRocketLauncher;
     }
 
-    protected override void Movement()
+    public override void Spawn(Vector3 spawnPosition)
+    {
+        base.Spawn(spawnPosition);
+        right = Random.Range(0, 2) % 2 == 0;
+    }
+
+    public override void Movement()
     {
         if ((transform.position.x > screenWidth || transform.position.x < -screenWidth) && (oldPosition.z - 3f < transform.position.z))
         {
@@ -31,4 +37,5 @@ public class EnemyRocketLauncher : EnemyBase
             }
         }
     }
+
 }

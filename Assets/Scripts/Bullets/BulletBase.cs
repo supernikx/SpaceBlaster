@@ -39,6 +39,8 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
     }
     private GameObject ownerobject;
 
+    private Quaternion startRotation;
+
     #endregion
 
     #region EventsDeclarations
@@ -60,6 +62,7 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
 
     public void DestroyMe()
     {
+        transform.rotation = startRotation;
         if (OnObjectDestroy != null)
             OnObjectDestroy(this);
     }
@@ -100,6 +103,7 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
     protected virtual void StartDefault()
     {
         screenHeight = Camera.main.orthographicSize - Camera.main.transform.position.z;
+        startRotation = transform.rotation;
     }
 
     private void FixedUpdate()
@@ -130,8 +134,8 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
             if (damaged != null)
             {
                 damaged.Damaged(this);
-            }
-            DestroyMe();
+                DestroyMe();
+            }           
         }
     }
 }

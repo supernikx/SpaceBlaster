@@ -55,3 +55,4 @@ MonoBehaviour:
   enemyTypes:
   - {fileID: 114533175430262966, guid: ff7a27d0a950c874488965ad03b0f6ec, type: 2}
   - {fileID: 114635506943465164, guid: c8944a8484d816944a2d2495ab8d77dc, type: 2}
+  - {fileID: 114540059404303292, guid: 426c25cfde0eca748ad589441dea2132, type: 2}
