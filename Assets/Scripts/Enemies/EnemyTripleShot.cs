@@ -16,6 +16,7 @@ public class EnemyTripleShot : EnemyBase {
             BulletBase bulletToShoot = pool.GetPooledObject(shootingBulletPrefab.objectID, gameObject).GetComponent<BulletBase>();
             bulletToShoot.transform.position = shootPoint.position;
             bulletToShoot.transform.rotation = Quaternion.Euler(0, yRotation+180, 0);
+            bulletToShoot.OnObjectDestroy += BulletDestroy;
             bulletToShoot.Shoot(bulletToShoot.transform.forward);
             yRotation -= 45f;
         }

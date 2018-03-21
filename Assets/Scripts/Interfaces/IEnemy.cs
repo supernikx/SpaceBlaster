@@ -8,4 +8,5 @@ public interface IEnemy {
     void Shoot();
     void Movement();
     void Spawn(Vector3 spawnPosition);
+    EnemyStats instanceStats { get; }
 }

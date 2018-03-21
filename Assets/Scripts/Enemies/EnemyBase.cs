@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,15 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, IPoolManager, IDamageSy
 
     [Header("Stats Settings")]
     public EnemyStats Stats;
-    private EnemyStats instanceStats;
+    private EnemyStats _instanceStats;
+    public EnemyStats instanceStats
+    {
+        get { return _instanceStats; }
+        set
+        {
+            _instanceStats = value;
+        }
+    }
 
     [Header("Shooting Settings")]
     public BulletBase shootingBulletPrefab;
@@ -72,8 +81,10 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, IPoolManager, IDamageSy
     {
         BulletBase bulletToShoot = pool.GetPooledObject(shootingBulletPrefab.objectID, gameObject).GetComponent<BulletBase>();
         bulletToShoot.transform.position = shootPoint.position;
+        bulletToShoot.OnObjectDestroy += BulletDestroy;
         bulletToShoot.Shoot(shootPoint.forward);
     }
+
     protected virtual void ShootRateo()
     {
         rateoTimer += Time.deltaTime;
@@ -151,6 +162,11 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, IPoolManager, IDamageSy
     }
 
     #region DestroyFunctions
+
+    protected virtual void BulletDestroy(IPoolManager _gameObject)
+    {
+        _gameObject.OnObjectDestroy -= BulletDestroy;
+    }
 
     public void DestroyMe()
     {
