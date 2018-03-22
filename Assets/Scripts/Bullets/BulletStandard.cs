@@ -16,4 +16,14 @@ public class BulletStandard : BulletBase
         transform.rotation = startRotation;
         base.DestroyMe();
     }
+
+    #region Visual Effect
+    public ParticleSystem particleSystem;
+    public override void DestroyVisualEffect()
+    {
+        base.DestroyVisualEffect();
+        particleSystem.Play();
+        DestroyMe();
+    }
+    #endregion
 }

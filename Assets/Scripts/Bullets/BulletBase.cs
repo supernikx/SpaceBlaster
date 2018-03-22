@@ -67,15 +67,19 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
 
     #region DestroyFunctions
 
+
+
     public virtual void DestroyMe()
     {
+
+        DestroyVisualEffect();
         if (OnObjectDestroy != null)
             OnObjectDestroy(this);
     }
 
     public virtual void DestroyVisualEffect()
     {
-        
+        CurrentState = State.Destroying;
     }
 
     #endregion

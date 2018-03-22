@@ -21,8 +21,8 @@ public class PlayerParticleController : MonoBehaviour
     void Update()
     {
 
-        var main = particleSystem.main;
-        main.startLifetime = (playerMovement.YAxisMovement + baseEffectDuration)/2;
+        /*var main = particleSystem.main;
+        main.startLifetime = (playerMovement.YAxisMovement + baseEffectDuration)/2;*/
 
     }
 }
