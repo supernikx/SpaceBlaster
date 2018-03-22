@@ -37,7 +37,13 @@ public class ShootInput : MonoBehaviour {
         bulletToShoot.transform.position = shootPosition.position;
         bulletToShoot.OnObjectDestroy += OnBulletDestroy;
         bulletToShoot.OnEnemyKill += OnEnemyKilled;
+        bulletToShoot.OnEnemyHit += OnEnemyHit;
         bulletToShoot.Shoot(shootPosition.forward);
+    }
+
+    private void OnEnemyHit(EnemyBase enemyKilled, BulletBase bullet)
+    {
+        bullet.OnEnemyHit -= OnEnemyHit;
     }
 
     private void OnEnemyKilled(EnemyBase enemyKilled, BulletBase bullet)
@@ -49,6 +55,7 @@ public class ShootInput : MonoBehaviour {
     private void OnBulletDestroy(IPoolManager _gameObject)
     {
         _gameObject.OnObjectDestroy -= OnBulletDestroy;
+        ((BulletBase)_gameObject).OnEnemyHit -= OnEnemyHit;
         ((BulletBase)_gameObject).OnEnemyKill -= OnEnemyKilled;
     }
 }

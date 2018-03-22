@@ -55,6 +55,13 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
         set { _OnEnemyKill = value; }
     }
     private IBulletEvents.BulletKillEvent _OnEnemyKill;
+    public IBulletEvents.BulletKillEvent OnEnemyHit
+    {
+
+        get { return _OnEnemyHit; }
+        set { _OnEnemyHit = value; }
+    }
+    private IBulletEvents.BulletKillEvent _OnEnemyHit;
 
     #endregion
 

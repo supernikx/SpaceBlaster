@@ -20,10 +20,17 @@ public class PoolObjects
 }
 
 public class PoolManager : MonoBehaviour {
+
+    #region Events
+    public delegate void PoolManagerEvent(IPoolManager pooledObject);
+    public PoolManagerEvent OnObjectPooled;
+    #endregion
+
     public static PoolManager instance;
     public List<PoolObjects> poolObjects = new List<PoolObjects>();
     Vector3 poolPosition = new Vector3(1000, 1000, 1000);
     Dictionary<ObjectTypes, List<IPoolManager>> poolDictionary;
+
 
     private void Awake()
     {
@@ -70,6 +77,10 @@ public class PoolManager : MonoBehaviour {
             if (_object.CurrentState == State.InPool)
             {
                 _object.ownerObject = callingObject;
+                if (OnObjectPooled != null)
+                {
+                    OnObjectPooled(_object);
+                }
                 return _object.gameObject;
             }
         }

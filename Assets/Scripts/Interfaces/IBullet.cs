@@ -13,5 +13,5 @@ public interface IBullet
     void DestroyMe();
     void DestroyVisualEffect();
     IBulletEvents.BulletKillEvent OnEnemyKill { get; set; }
-
+    IBulletEvents.BulletKillEvent OnEnemyHit { get; set; }
 }

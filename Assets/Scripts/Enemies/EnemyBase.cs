@@ -134,6 +134,7 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, IPoolManager, IDamageSy
         if (bulletHitted.ownerObject.tag == "Player")
         {
             instanceStats.life -= bulletHitted.Stats.damage;
+            bulletHitted.OnEnemyHit(this,bulletHitted);
             if (instanceStats.life <= 0)
             {
                 bulletHitted.OnEnemyKill(this, bulletHitted);
