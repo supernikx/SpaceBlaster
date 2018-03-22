@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode leftInput = KeyCode.A;
     public float movementSpeed = 0.2f;
 
+    public int XAxisMovement = 0;
+    public int YAxisMovement = 0;
+
     float screenWidth;
 
     void Start()
@@ -25,22 +28,35 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(forwardInput))
         {
             transform.position += Vector3.forward * movementSpeed;
+            YAxisMovement = 1;
         }
         //movimento indietro
         else if (Input.GetKey(backwardInput))
         {
             transform.position += Vector3.back * movementSpeed;
+            YAxisMovement = -1;
+        }
+        else
+        {
+
+            YAxisMovement = 0;
         }
 
         //movimento a destra
         if (Input.GetKey(rightInput))
         {
             transform.position += Vector3.right * movementSpeed;
+            XAxisMovement = -1;
         }
         //movimento a sinistra
         else if (Input.GetKey(leftInput))
         {
             transform.position += Vector3.left * movementSpeed;
+            XAxisMovement = 1;
+        }
+        else
+        {
+            XAxisMovement = 0;
         }
         CheckCameraBounds();
     }
