@@ -9,7 +9,16 @@ public class BulletStandard : BulletBase
     {
         return ObjectTypes.BulletStandard;
     }
+    MeshRenderer mr;
+    Collider collider;
     #endregion
+
+    protected override void StartDefault()
+    {
+        base.StartDefault();
+        mr = GetComponentInChildren<MeshRenderer>();
+        collider = GetComponent<Collider>();
+    }
 
     public override void DestroyMe()
     {
@@ -21,9 +30,18 @@ public class BulletStandard : BulletBase
     public ParticleSystem particleSystem;
     public override void DestroyVisualEffect()
     {
-        base.DestroyVisualEffect();
         particleSystem.Play();
-        DestroyMe();
+        mr.enabled = false;
+        collider.enabled = false;
+        Invoke("InvokeBaseVisualEffectDestroy", particleSystem.duration*2);
     }
+
+    public void InvokeBaseVisualEffectDestroy()
+    {
+        base.DestroyVisualEffect();
+        mr.enabled = true;
+        collider.enabled = true;
+    }
+
     #endregion
 }

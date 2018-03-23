@@ -8,7 +8,6 @@ public class PlayerParticleController : MonoBehaviour
 
     public ParticleSystem particleSystem;
     public PlayerMovement playerMovement;
-    public float baseEffectDuration = 1.5f;
 
 
     private void Start()
@@ -20,9 +19,21 @@ public class PlayerParticleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        /*var main = particleSystem.main;
-        main.startLifetime = (playerMovement.YAxisMovement + baseEffectDuration)/2;*/
+        var mainModule = particleSystem.main;
+        
+        if (playerMovement.YAxisMovement == 1)
+        {
+            mainModule.startLifetime = new ParticleSystem.MinMaxCurve(0.3f, 0.4f);
+        }
+        else if (playerMovement.YAxisMovement == -1)
+        {
+            mainModule.startLifetime = new ParticleSystem.MinMaxCurve(0.1f, 0.2f);
+        }
+        else
+        {
+            mainModule.startLifetime = new ParticleSystem.MinMaxCurve(0.2f, 0.3f);
+        }
+        
 
     }
 }

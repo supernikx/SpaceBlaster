@@ -67,19 +67,21 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
 
     #region DestroyFunctions
 
-
+    public void DestroyBehaviour()
+    {
+        CurrentState = State.Destroying;
+        DestroyVisualEffect();
+    }
 
     public virtual void DestroyMe()
     {
-
-        DestroyVisualEffect();
         if (OnObjectDestroy != null)
             OnObjectDestroy(this);
     }
 
     public virtual void DestroyVisualEffect()
     {
-        CurrentState = State.Destroying;
+        DestroyMe();
     }
 
     #endregion
@@ -127,7 +129,7 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
         {
             transform.position += direction * Stats.bulletSpeed;
             if (CheckScreenPosition())
-                DestroyMe();
+                DestroyBehaviour();
         }
     }
 
@@ -144,7 +146,7 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
             if (damaged != null)
             {
                 damaged.Damaged(this);
-                DestroyMe();
+                DestroyBehaviour();
             }           
         }
     }

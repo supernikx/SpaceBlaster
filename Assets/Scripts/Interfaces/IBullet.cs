@@ -10,7 +10,7 @@ public interface IBullet
 {
     ObjectTypes objectID { get; }
     void Shoot(Vector3 _direction);
-    void DestroyMe();
+    void DestroyBehaviour();
     void DestroyVisualEffect();
     IBulletEvents.BulletKillEvent OnEnemyKill { get; set; }
     IBulletEvents.BulletKillEvent OnEnemyHit { get; set; }
