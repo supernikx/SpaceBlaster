@@ -1019,7 +1019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f732180904ae6cf43a8c54efb8b67f72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnviromentClip: {fileID: 0}
+  EnviromentClip: {fileID: 8300000, guid: 86e83d71ca129854891295cc0a9db848, type: 3}
   OnShootClip: {fileID: 0}
   OnBulletDestroyClip: {fileID: 0}
   OnShipDestroyClip: {fileID: 0}
