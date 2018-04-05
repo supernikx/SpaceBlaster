@@ -6,7 +6,7 @@ public class BackgroundController : MonoBehaviour
 {
 
     float screenHeight;
-    public Bounds bound;
+    Bounds bound;
     BackgroundManager bgManager;
 
     private bool CheckScreenPosition()
