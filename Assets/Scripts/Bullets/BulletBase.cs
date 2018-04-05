@@ -114,7 +114,7 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
 
     protected virtual void StartDefault()
     {
-        screenHeight = Camera.main.orthographicSize - Camera.main.transform.position.z;
+        screenHeight = Camera.main.orthographicSize - Camera.main.transform.position.z + new Vector3(0, 0, 1.5f).z;
         startRotation = transform.rotation;
     }
 
@@ -147,7 +147,7 @@ public abstract class BulletBase : MonoBehaviour, IBullet, IPoolManager
             {
                 damaged.Damaged(this);
                 DestroyBehaviour();
-            }           
+            }
         }
     }
 }

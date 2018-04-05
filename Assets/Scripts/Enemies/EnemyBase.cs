@@ -120,7 +120,7 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, IPoolManager, IDamageSy
             ShootRateo();
             Movement();
             if (CheckScreenPosition())
-                DestroyMe();
+                DestroyBehaviour();
         }
     }
 
@@ -138,7 +138,7 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, IPoolManager, IDamageSy
             if (instanceStats.life <= 0)
             {
                 bulletHitted.OnEnemyKill(this, bulletHitted);
-                DestroyMe();
+                DestroyBehaviour();
             }
         }
     }
@@ -169,16 +169,21 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, IPoolManager, IDamageSy
         _gameObject.OnObjectDestroy -= BulletDestroy;
     }
 
+    public void DestroyBehaviour()
+    {
+        CurrentState = State.Destroying;
+        DestroyVisualEffect();
+    }
+
     public void DestroyMe()
     {
-        CurrentState = State.InPool;
         if (OnObjectDestroy != null)
             OnObjectDestroy(this);
     }
 
     public void DestroyVisualEffect()
     {
-
+        DestroyMe();
     }
 
     #endregion

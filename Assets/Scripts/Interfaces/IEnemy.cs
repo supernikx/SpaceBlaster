@@ -3,7 +3,7 @@
 public interface IEnemy {
 
     ObjectTypes objectID { get; }
-    void DestroyMe();
+    void DestroyBehaviour();
     void DestroyVisualEffect();
     void Shoot();
     void Movement();

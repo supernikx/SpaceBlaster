@@ -33,7 +33,7 @@ public class BulletStandard : BulletBase
         particleSystem.Play();
         mr.enabled = false;
         collider.enabled = false;
-        Invoke("InvokeBaseVisualEffectDestroy", particleSystem.duration*2);
+        Invoke("InvokeBaseVisualEffectDestroy", particleSystem.main.duration*2);
     }
 
     public void InvokeBaseVisualEffectDestroy()
