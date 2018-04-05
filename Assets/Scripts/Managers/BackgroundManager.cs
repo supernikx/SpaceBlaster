@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BackgroundManager : MonoBehaviour {
     public float backgoundDislpace = 40.90001f;
-    public float backgroundspeed=0.5f;
+    public float backgroundspeed=0.1f;
     public BackgroundController bg1;
     public BackgroundController bg2;
     BackgroundController currentBG;
