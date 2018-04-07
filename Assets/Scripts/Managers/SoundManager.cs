@@ -19,6 +19,7 @@ public class SoundManager : MonoBehaviour {
     {
         PoolManager.instance.OnObjectPooled += OnObjectPooled;
     }
+
     private void OnDisable()
     {
         PoolManager.instance.OnObjectPooled -= OnObjectPooled;

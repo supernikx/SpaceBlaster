@@ -7,10 +7,11 @@ using UnityEngine;
 public class ShootInput : MonoBehaviour {
     [Header("Shoot Settings")]
     public KeyCode shootInput = KeyCode.Space;
-    public BulletBase BulletTypePrefab;
     public Transform shootPosition;
-    PoolManager pool;
-    PlayerScore scoreController;
+    public List<IWeapon> inventroy = new List<IWeapon>(4);
+    public int activeSlot;
+    protected PoolManager pool;
+    protected PlayerScore scoreController;
 
     private void Awake()
     {
@@ -27,32 +28,22 @@ public class ShootInput : MonoBehaviour {
     void Update () {
         if (Input.GetKeyDown(shootInput))
         {
-            Shoot();
+            inventroy[activeSlot].Shoot(shootPosition);
         }
 	}
 
-    void Shoot()
-    {
-        BulletBase bulletToShoot = pool.GetPooledObject(BulletTypePrefab.objectID, gameObject).GetComponent<BulletBase>();
-        bulletToShoot.transform.position = shootPosition.position;
-        bulletToShoot.OnObjectDestroy += OnBulletDestroy;
-        bulletToShoot.OnEnemyKill += OnEnemyKilled;
-        bulletToShoot.OnEnemyHit += OnEnemyHit;
-        bulletToShoot.Shoot(shootPosition.forward);
-    }
-
-    private void OnEnemyHit(EnemyBase enemyKilled, BulletBase bullet)
+    protected void OnEnemyHit(EnemyBase enemyKilled, BulletBase bullet)
     {
         bullet.OnEnemyHit -= OnEnemyHit;
     }
 
-    private void OnEnemyKilled(EnemyBase enemyKilled, BulletBase bullet)
+    protected void OnEnemyKilled(EnemyBase enemyKilled, BulletBase bullet)
     {
         scoreController.Score += enemyKilled.Stats.score;
         bullet.OnEnemyKill -= OnEnemyKilled;
     }
 
-    private void OnBulletDestroy(IPoolManager _gameObject)
+    protected void OnBulletDestroy(IPoolManager _gameObject)
     {
         _gameObject.OnObjectDestroy -= OnBulletDestroy;
         ((BulletBase)_gameObject).OnEnemyHit -= OnEnemyHit;
