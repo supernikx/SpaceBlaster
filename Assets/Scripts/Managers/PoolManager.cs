@@ -9,6 +9,7 @@ public enum ObjectTypes
     EnemyStandard,
     EnemyRocketLauncher,
     EnemyTripleShot,
+    EnemyBonus,
 }
 
 [System.Serializable]

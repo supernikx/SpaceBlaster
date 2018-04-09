@@ -2,15 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponBase : ShootInput, IWeapon
+public abstract class WeaponBase : MonoBehaviour, IWeapon
 {
-    public void Shoot(Transform shootPosition)
+    protected PlayerScore scoreController;
+    protected PoolManager pool;
+
+    private void Start()
     {
-        BulletBase bulletToShoot = pool.GetPooledObject(ObjectTypes.BulletStandard, gameObject).GetComponent<BulletBase>();
-        bulletToShoot.transform.position = shootPosition.position;
-        bulletToShoot.OnObjectDestroy += OnBulletDestroy;
-        bulletToShoot.OnEnemyKill += OnEnemyKilled;
-        bulletToShoot.OnEnemyHit += OnEnemyHit;
-        bulletToShoot.Shoot(shootPosition.forward);
+        scoreController = GetComponent<PlayerScore>();
+        pool = PoolManager.instance;
+    }
+    public abstract void Shoot(Transform shootPosition, GameObject callingobject);
+
+
+    protected void OnEnemyHit(EnemyBase enemyKilled, BulletBase bullet)
+    {
+        bullet.OnEnemyHit -= OnEnemyHit;
+    }
+
+    protected void OnEnemyKilled(EnemyBase enemyKilled, BulletBase bullet)
+    {
+        scoreController.Score += enemyKilled.Stats.score;
+        bullet.OnEnemyKill -= OnEnemyKilled;
+    }
+
+    protected void OnBulletDestroy(IPoolManager _gameObject)
+    {
+        _gameObject.OnObjectDestroy -= OnBulletDestroy;
+        ((BulletBase)_gameObject).OnEnemyHit -= OnEnemyHit;
+        ((BulletBase)_gameObject).OnEnemyKill -= OnEnemyKilled;
     }
 }

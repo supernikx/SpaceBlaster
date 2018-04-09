@@ -67,7 +67,7 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, IPoolManager, IDamageSy
     #region ScreenCheck
     protected float screenHeight;
     protected float screenWidth;
-    private bool CheckScreenPosition()
+    protected bool CheckScreenPosition()
     {
         if (transform.position.z < -screenHeight)
             return true;
@@ -169,19 +169,19 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, IPoolManager, IDamageSy
         _gameObject.OnObjectDestroy -= BulletDestroy;
     }
 
-    public void DestroyBehaviour()
+    public virtual void DestroyBehaviour()
     {
         CurrentState = State.Destroying;
         DestroyVisualEffect();
     }
 
-    public void DestroyMe()
+    public virtual void DestroyMe()
     {
         if (OnObjectDestroy != null)
             OnObjectDestroy(this);
     }
 
-    public void DestroyVisualEffect()
+    public virtual void DestroyVisualEffect()
     {
         DestroyMe();
     }

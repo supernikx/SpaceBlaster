@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IWeapon
 {
-    void Shoot(Transform shootPosition);
+    void Shoot(Transform shootPosition, GameObject callingobject);
 }

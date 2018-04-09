@@ -15,11 +15,6 @@ public class SoundManager : MonoBehaviour {
     public AudioSource EnviromentTrack;
     public AudioSource SFXTrack;
 
-    private void OnEnable()
-    {
-        PoolManager.instance.OnObjectPooled += OnObjectPooled;
-    }
-
     private void OnDisable()
     {
         PoolManager.instance.OnObjectPooled -= OnObjectPooled;
@@ -41,6 +36,7 @@ public class SoundManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        PoolManager.instance.OnObjectPooled += OnObjectPooled;
         SetEnviromentClip();
 	}
 	
