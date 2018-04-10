@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBonus : EnemyBase {
-    [Header("Drop Settings")]
     protected override ObjectTypes getID()
     {
         return ObjectTypes.EnemyBonus;
