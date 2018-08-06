@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
+using TMPro;
 
 public class PlayerLifeController : MonoBehaviour {
 
-    public Text scoreText;
+    public TextMeshProUGUI scoreText;
     public PlayerDamageSystem playerToCheck;
 
     private void OnEnable()

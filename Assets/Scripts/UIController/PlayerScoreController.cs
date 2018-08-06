@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
+using TMPro;
 
 public class PlayerScoreController : MonoBehaviour {
 
-    public Text scoreText;
+    public TextMeshProUGUI scoreText;
     public PlayerScore playerToCheck;
 
     private void OnEnable()
